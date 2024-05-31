@@ -72,24 +72,8 @@ function setup() {
   flowerMaxSize = windowWidth / 6;
   flowerMinSize = windowWidth / 20;
 
-  // Start animation loop for broken chains
-  setInterval(animateBrokenChains, 20);
-
-  // Start animation loop for concentric circles
-  setInterval(animateConcentricCircles, 20);
-
   // Calling the windowResized function
   windowResized();
-}
-
-//----------------------
-// ANIMATION FUNCTION FOR BROKENCHAINS
-//----------------------
-function animateBrokenChains() {
-  // Update rotation for broken chains
-  brokenChain.updateRotation(positiveAngleIncrement);
-  brokenChain2.updateRotation(positiveAngleIncrement);
-  brokenChain3.updateRotation(positiveAngleIncrement);
 }
 
 //Drawing the elements on the canvas
