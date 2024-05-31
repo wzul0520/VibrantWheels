@@ -99,6 +99,16 @@ function draw() {
   brokenChain2.display();
   brokenChain3.display();
 
+
+  //----------------------
+  // BROKEN CHAINED CIRCLES ANIMATION
+  //----------------------
+
+  // Animate the broken chains with rotation
+  brokenChain.updateRotation(positiveAngleIncrement);
+  brokenChain2.updateRotation(positiveAngleIncrement);
+  brokenChain3.updateRotation(positiveAngleIncrement);
+
   //----------------------
   // FLOWER ANIMATION
   //----------------------

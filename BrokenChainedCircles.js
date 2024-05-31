@@ -59,5 +59,5 @@ class BrokenChainedCircles {
 
     updateRotation(angleIncrement) {
         this.rotationAngle += angleIncrement;
-    }
+      }
 }
