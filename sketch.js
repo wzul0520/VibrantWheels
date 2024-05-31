@@ -100,9 +100,9 @@ function draw() {
   brokenChain3.display();
 
 
-  //----------------------
+  //---------------------------------
   // BROKEN CHAINED CIRCLES ANIMATION
-  //----------------------
+  //---------------------------------
 
   // Animate the broken chains with rotation
   brokenChain.updateRotation(positiveAngleIncrement);
