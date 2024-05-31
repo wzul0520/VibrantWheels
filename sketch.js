@@ -18,6 +18,10 @@ flower,
 radiatingLines2, 
 glowingCircle2;
 
+
+let flowerBaseSize, flowerSize, flowerMaxSize, flowerMinSize; //
+let time = 0; // To keep track of the elapsed time
+
 function setup() {
     
   // Set the canvas to the full browser window size
@@ -80,6 +84,11 @@ function setup() {
   //Glowing circle to the right
   glowingCircle2 = new GlowingCircle (7 * windowWidth /7.5, windowHeight/1.2, 30, [255, 171, 59, 150]);
 
+  // Define base and range sizes for the flower animation
+  flowerBaseSize = windowWidth / 10;
+  flowerMaxSize = windowWidth / 6;
+  flowerMinSize = windowWidth / 20;
+
   // Calling the windowResized function
   windowResized(); 
   
@@ -105,6 +114,21 @@ function draw() {
   brokenChain.display();
   brokenChain2.display();
   brokenChain3.display();
+
+//----------------------
+// FLOWER ANIMATION
+//----------------------
+
+  // Animate the flower size with ease in and out
+  time += 0.05; // Adjust this value to control the speed of the animation
+  let easeInOut = (1 - cos(time * PI)) / 2; // Easing function
+  let scaleFactor = easeInOut; // Apply easing function for smooth transition
+  flower.petalWidth = lerp(flowerMinSize, flowerMaxSize, scaleFactor); // Linearly interpolate between min and max size
+  flower.petalHeight = flower.petalWidth / 4; // Adjust the petal height proportionally
+  flower.centerSize = flower.petalWidth / 4; // Adjust the center size proportionally
+
+  flower.display();
+  
 }
 
 // Handle window resize event
@@ -214,4 +238,14 @@ function windowResized() {
   radiatingLines2.x = 7 * windowWidth /7.5;
   radiatingLines2.y  = windowHeight/1.2;
   radiatingLines2.length = min(windowWidth / 10, windowHeight/10);
+
+  // Update flower dimensions based on window size
+  flowerBaseSize = windowWidth / 10;
+  flowerMaxSize = windowWidth / 8;
+  flowerMinSize = windowWidth / 12;
+
+  // Calculate the initial size for the flower
+  flower.petalWidth = flowerBaseSize;
+  flower.petalHeight = flowerBaseSize / 4;
+  flower.centerSize = flowerBaseSize / 4;
  }
