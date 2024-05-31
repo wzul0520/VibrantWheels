@@ -2,10 +2,12 @@ class ConcentricCircles {
   constructor(x, y, radius, levels, strokeWeight = 1, glowColors) {
       this.x = x;
       this.y = y;
+      this.baseRadius = radius; // Store the initial radius
       this.radius = radius;
       this.levels = levels;
       this.strokeWeight = strokeWeight;
       this.glowColors = glowColors;  // Array of RGBA color values
+      this.growing = true; // Direction of radius change
   }
 
   display() {
@@ -24,12 +26,26 @@ class ConcentricCircles {
 
           // Enhance the glow by drawing the circle multiple times
           for (let j = 0; j < 3; j++) {  // Draw each circle 3 times to enhance the glow
-            ellipse(this.x, this.y, r * 2, r * 2);
-        }
+              ellipse(this.x, this.y, r * 2, r * 2);
+          }
 
           // Reset shadow properties after drawing each circle to ensure correct glow color application
           drawingContext.shadowBlur = 0;
           drawingContext.shadowColor = 'rgba(0, 0, 0, 0)';
+      }
+  }
+
+  updateRadius(delta) {
+      if (this.growing) {
+          this.radius += delta;
+          if (this.radius >= this.baseRadius * 1.5) { // If radius exceeds 150% of base, switch to shrinking
+              this.growing = false;
+          }
+      } else {
+          this.radius -= delta;
+          if (this.radius <= this.baseRadius * 0.5) { // If radius falls below 50% of base, switch to growing
+              this.growing = true;
+          }
       }
   }
 }

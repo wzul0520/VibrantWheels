@@ -1,5 +1,5 @@
 class ChainedCircles {
-     //Constructs a chain of glowing circles arranged in a circular pattern.
+    // Constructs a chain of glowing circles arranged in a circular pattern.
     constructor(x, y, radius, count, glowColor = [0, 100, 255, 150], circleColor = [255, 255, 255, 255], strokeWeight = 1) {
         this.x = x;
         this.y = y;
@@ -9,12 +9,13 @@ class ChainedCircles {
         this.circleColor = circleColor; // Color for the circles, defaults to opaque white
         this.strokeWeight = strokeWeight;
         this.sizePattern = [1.0, 0.8, 0.6, 0.8, 1.0, 1.2, 1.4, 1.2]; // Pattern to vary the size of the circles in the chain
+        this.rotationAngle = 0; // Rotation angle in radians
     }
     
-    //Displays the chained circles with glowing effects.
+    // Displays the chained circles with glowing effects.
     display() {
         blendMode(ADD); // Use additive blending to enhance the glow effect
-        let angle = 0; // Start angle for the first circle
+        let angle = this.rotationAngle; // Start angle for the first circle, include rotation
         let previousDiameter = 0; // Diameter of the previous circle, used to calculate the next position
 
         for (let i = 0; i < this.count; i++) {
@@ -41,8 +42,8 @@ class ChainedCircles {
         blendMode(BLEND);
     }
 
-     //Applies a glowing effect to the circles.
-        applyGlow(x, y, diameter) {
+    // Applies a glowing effect to the circles.
+    applyGlow(x, y, diameter) {
         // Set the shadow (glow) properties for the circle
         let glowColor = color(this.glowColor[0], this.glowColor[1], this.glowColor[2], this.glowColor[3]);
         drawingContext.shadowBlur = 50; // Set the glow spread
@@ -59,5 +60,10 @@ class ChainedCircles {
             let increment = i * 2;  // Incremental increase in diameter for each layer
             ellipse(x, y, diameter + increment, diameter + increment);
         }
+    }
+
+    // Updates the rotation angle to create a rotating effect
+    updateRotation(angleIncrement) {
+        this.rotationAngle += angleIncrement;
     }
 }

@@ -8,11 +8,12 @@ class BrokenChainedCircles {
         this.circleColor = circleColor;
         this.strokeWeight = strokeWeight;
         this.sizePattern = [1.0, 0.8, 0.6, 0.8, 1.0, 1.2, 1.4, 1.2];
-        this.positions = [];
+        this.rotationAngle = 0; // Initialize rotation angle
         this.setupPositions();
     }
 
     setupPositions() {
+        this.positions = [];
         let angleStep = 2 * PI / this.count; // Evenly spaced angles
         let angle = 0;
 
@@ -20,20 +21,24 @@ class BrokenChainedCircles {
             let sizeMultiplier = this.sizePattern[i % this.sizePattern.length];
             let circleDiameter = ((1.5 * PI * this.radius) / this.count) * sizeMultiplier * 0.5; // Adjust the 0.5 scaling factor as needed
 
-            let posX = this.x + cos(angle) * this.radius;
-            let posY = this.y + sin(angle) * this.radius;
-            this.positions.push({x: posX, y: posY, diameter: circleDiameter});
+            let posX = cos(angle) * this.radius;
+            let posY = sin(angle) * this.radius;
+            this.positions.push({ x: posX, y: posY, diameter: circleDiameter });
 
             angle += angleStep; // Increment angle for the next circle
         }
     }
 
     display() {
+        push();
+        translate(this.x, this.y); // Move the origin to the center of the group
+        rotate(this.rotationAngle); // Rotate the entire group
         blendMode(ADD);
         for (let pos of this.positions) {
             this.applyGlow(pos.x, pos.y, pos.diameter);
         }
         blendMode(BLEND);
+        pop();
     }
 
     applyGlow(x, y, diameter) {
@@ -50,5 +55,9 @@ class BrokenChainedCircles {
             let increment = i * 2;
             ellipse(x, y, diameter + increment, diameter + increment);
         }
+    }
+
+    updateRotation(angleIncrement) {
+        this.rotationAngle += angleIncrement;
     }
 }
