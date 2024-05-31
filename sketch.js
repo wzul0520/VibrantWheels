@@ -112,6 +112,12 @@ function draw() {
   flower.centerSize = flower.petalWidth / 4; // Adjust the center size proportionally
 
   flower.display();
+
+  //----------------------
+  // RADIATING LINES ANIMATION
+  //----------------------
+  radiatingLines.updateLengthWithEase(time);
+  radiatingLines2.updateLengthWithEase(time);
 }
 
 // Handle window resize event
